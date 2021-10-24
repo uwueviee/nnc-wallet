@@ -1,0 +1,8 @@
+{
+  "name": "ncc-wallet",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "d0ca3d06"
+}
