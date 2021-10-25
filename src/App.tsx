@@ -32,43 +32,49 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import PairWalletModal from "./pages/PairWalletModal";
+import {useRef} from "react";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
-          </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
-          <Route exact path="/tab3">
-            <Tab3 />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/tab1" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={walletOutline} />
-            <IonLabel>Wallets</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={albumsOutline} />
-            <IonBadge>3</IonBadge>
-            <IonLabel>Transactions</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={cogOutline} />
-            <IonLabel>Settings</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const routerRef = useRef<HTMLIonRouterOutletElement | null>(null);
+
+  return (
+      <IonApp>
+        <IonReactRouter>
+          <IonTabs>
+            <IonRouterOutlet ref={routerRef}>
+              <Route exact path="/wallets">
+                <Tab1 router={routerRef.current}/>
+              </Route>
+              <Route exact path="/transactions">
+                <Tab2/>
+              </Route>
+              <Route exact path="/settings">
+                <Tab3/>
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/wallets"/>
+              </Route>
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="wallets" href="/wallets">
+                <IonIcon icon={walletOutline}/>
+                <IonLabel>Wallets</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="transactions" href="/transactions">
+                <IonIcon icon={albumsOutline}/>
+                <IonBadge>3</IonBadge>
+                <IonLabel>Transactions</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="settings" href="/settings">
+                <IonIcon icon={cogOutline}/>
+                <IonLabel>Settings</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </IonReactRouter>
+      </IonApp>
+  )
+};
 
 export default App;

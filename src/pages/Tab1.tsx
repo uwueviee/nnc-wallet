@@ -5,21 +5,35 @@ import {
     IonCardHeader,
     IonCardSubtitle, IonCardTitle,
     IonContent, IonFab, IonFabButton,
-    IonHeader, IonIcon, IonItem, IonLabel,
+    IonHeader, IonIcon, IonItem, IonLabel, IonModal,
     IonPage,
     IonTitle,
-    IonToolbar
+    IonToolbar, useIonModal
 } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 import {add, arrowForwardOutline, ellipsisHorizontal, ellipsisVertical, personCircle, search} from "ionicons/icons";
+import {useState} from "react";
+import PairWalletModal from "./PairWalletModal";
 
 const centerAmountStyle = {
     marginTop: '10px'
 }
 
-const Tab1: React.FC = () => {
-  return (
+interface AddWalletProps {
+    router: HTMLIonRouterOutletElement | null;
+}
+
+const Tab1: React.FC<AddWalletProps> = ({ router }) => {
+    const handleDismiss = () => {
+        dismissPairWallet();
+    };
+
+    const [presentPairWallet, dismissPairWallet] = useIonModal(PairWalletModal, {
+        onDismiss: handleDismiss
+    });
+
+    return (
     <IonPage>
         <IonHeader>
             <IonToolbar>
@@ -62,7 +76,7 @@ const Tab1: React.FC = () => {
           </IonCard>
 
           <IonFab vertical="bottom" horizontal="end" slot="fixed">
-              <IonFabButton>
+              <IonFabButton onClick={() => presentPairWallet()}>
                   <IonIcon icon={add} />
               </IonFabButton>
           </IonFab>

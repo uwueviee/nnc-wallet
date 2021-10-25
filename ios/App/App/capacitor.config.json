@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "ncc-wallet",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
